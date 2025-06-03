@@ -1,0 +1,48 @@
+@import url(https://fonts.googleapis.com/css?family=Josefin+Sans:100,200,300,regular,500,600,700,100italic,200italic,300italic,italic,500italic,600italic,700italic);
+
+:root {
+  /* COLORS */
+
+  /* PRIMARY COLORS */
+  --Bright-Blue: hsl(220, 98%, 61%);
+  --Check-Background: linear-gradient hsl(192, 100%, 67%) to hsl(280, 87%, 65%);
+
+  /* ### Light Theme */
+
+  --Very-Light-Gray: hsl(0, 0%, 98%);
+  --Very-Light-Grayish-Blue: hsl(236, 33%, 92%);
+  --Light-Grayish-Blue: hsl(233, 11%, 84%);
+  --Dark-Grayish-Blue: hsl(236, 9%, 61%);
+  --Very-Dark-Grayish-Blue: hsl(235, 19%, 35%);
+
+  /* ### Dark Theme */
+
+  --Very-Dark-Blue: hsl(235, 21%, 11%);
+  --Very-Dark-Desaturated-Blue: hsl(235, 24%, 19%);
+  --Light-Grayish-Blue: hsl(234, 39%, 85%);
+  --Light-Grayish-Blue-hover: hsl(236, 33%, 92%);
+  --Dark-Grayish-Blue: hsl(234, 11%, 52%);
+  --Very-Dark-Grayish-Blue: hsl(233, 14%, 35%);
+  --Very-Dark-Grayish-Blue: hsl(237, 14%, 26%);
+
+  /* ### Font */
+
+  /* Weight */
+  --font-wgt-sm: 400;
+  --font-wgt-lg: 700;
+
+  /* ## Typography */
+  --txt-xsm: 0.8rem;
+  --txt-sm: 1rem;
+  --txt-xsmd: 1.2rem;
+  --txt-smd: 1.4rem;
+  --txt-md: 1.6rem;
+  --txt-xmd: 1.8rem;
+  --txt-lg: 2rem;
+  --txt-xlg: 2.4rem;
+}
+
+html {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 62.5%;
+}
