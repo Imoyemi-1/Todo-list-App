@@ -1,13 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
     <title>Todo-list App</title>
-    <link rel="stylesheet" href="./css/normalize.css">
-    <link rel="stylesheet" href="./css/style.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="./css/normalize.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./css/style.css"
+    />
+  </head>
+  <body>
+    <section id="head-section"></section>
+    <section id="main-section">
+      <header>
+        <h2>TODO</h2>
+        <img
+          src="images/icon-sun.svg"
+          alt="dark/light-mode toggle"
+        />
+      </header>
+      <div id="input-container">
+        <div class="circle"></div>
+        <input type="text" name="addtodo" id="AddTodoItem">
+      </div>
+      <div id="todo-Item-container"></div>
+      <div id="toggle-todo-section-container">
+      </div>
+    </section>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
