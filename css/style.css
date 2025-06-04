@@ -6,7 +6,7 @@
   /* PRIMARY COLORS */
   --Bright-Blue: hsl(220, 98%, 61%);
   --Check-Background: linear-gradient hsl(192, 100%, 67%) to hsl(280, 87%, 65%);
-
+  --debug-line: 1px solid red;
   /* ### Light Theme */
 
   --Very-Light-Gray: hsl(0, 0%, 98%);
@@ -45,4 +45,76 @@
 html {
   font-family: 'Josefin Sans', sans-serif;
   font-size: 62.5%;
+}
+
+/* Mobile view style */
+
+#head-section {
+  background-image: url('../images/bg-mobile-dark.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 30vh;
+}
+
+#main-section {
+  display: flex;
+  justify-content: center;
+  min-height: 70vh;
+  background-color: var(--Very-Dark-Blue);
+}
+
+#main-section-container {
+  width: 100%;
+  max-width: 1020px;
+  border: var(--debug-line);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 5.5rem;
+  padding: 0 2rem;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.8rem;
+}
+
+header h2 {
+  color: var(--Very-Light-Gray);
+  font-size: 3.5rem;
+  letter-spacing: 0.5rem;
+}
+
+header img {
+  width: 100%;
+  max-width: 2.5rem;
+}
+
+#input-container {
+  position: relative;
+}
+
+#addtodoitem {
+  width: 100%;
+  height: 5rem;
+  font-size: var(--txt-md);
+  background-color: var(--Very-Dark-Desaturated-Blue);
+  border: none;
+  padding-left: 5rem;
+  color: var(--Light-Grayish-Blue);
+  border-radius: 5px;
+}
+
+#input-container::after {
+  content: '';
+  position: absolute;
+  height: 2.1rem;
+  width: 2.1rem;
+  border-radius: 50%;
+  border: 1px solid var(--Very-Dark-Grayish-Blue);
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
 }

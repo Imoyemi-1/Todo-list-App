@@ -9,36 +9,38 @@
     <title>Todo-list App</title>
     <link
       rel="stylesheet"
-      href="./css/normalize.css"
+      href="css/normalize.css"
     />
     <link
       rel="stylesheet"
-      href="./css/style.css"
+      href="css/style.css"
     />
   </head>
   <body>
     <section id="head-section"></section>
     <section id="main-section">
-      <header>
-        <h2>TODO</h2>
-        <img
-          src="images/icon-sun.svg"
-          alt="dark/light-mode toggle"
-        />
-      </header>
-      <div id="input-container">
-        <div class="circle"></div>
-        <input
-          type="text"
-          name="addtodo"
-          id="AddTodoItem"
-        />
-      </div>
-      <div id="todo-Item-container">
-        <!-- todo: add item later when styling -->
-      </div>
-      <div id="toggle-todo-section-container">
-        <!-- todo: add item later when styling -->
+      <div id="main-section-container">
+        <header>
+          <h2>TODO</h2>
+          <img
+            src="images/icon-sun.svg"
+            alt="dark/light-mode toggle"
+          />
+        </header>
+        <div id="input-container">
+          <input
+            type="text"
+            name="addtodo"
+            id="addtodoitem"
+            placeholder="Create a new todo..."
+          />
+        </div>
+        <div id="todo-Item-container">
+          <!-- todo: add item later when styling -->
+        </div>
+        <div id="toggle-todo-section-container">
+          <!-- todo: add item later when styling -->
+        </div>
       </div>
     </section>
     <script src="script.js"></script>
