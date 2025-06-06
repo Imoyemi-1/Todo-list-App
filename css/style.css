@@ -24,7 +24,7 @@
   --Light-Grayish-Blue-hover: hsl(236, 33%, 92%);
   --Dark-Grayish-Blue: hsl(234, 11%, 52%);
   --Very-Dark-Grayish-Blue: hsl(233, 14%, 35%);
-  --Very-Dark-Grayish-Blue: hsl(237, 14%, 26%);
+  --Very-Dark-Grayish: hsl(237, 14%, 26%);
 
   /* ### Font */
 
@@ -72,7 +72,7 @@ body {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 7rem;
+  top: 9.5rem;
   padding: 0 2rem;
 }
 
@@ -105,7 +105,7 @@ header img:hover {
 
 #addtodoitem {
   width: 100%;
-  height: 5rem;
+  height: 6rem;
   font-size: var(--txt-md);
   background-color: var(--Very-Dark-Desaturated-Blue);
   border: none;
@@ -133,7 +133,7 @@ header img:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem;
+  padding: 2rem 1.5rem;
   border-bottom: 1.5px solid var(--Very-Dark-Grayish-Blue);
 }
 
@@ -197,4 +197,51 @@ input[type='checkbox']:checked::after {
 
 .remove-todo-btn:hover {
   transform: scale(0.8);
+}
+
+#toggle-todo-section-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 10px;
+}
+
+#toggle-todo-section-container button {
+  border: none;
+}
+
+#todo-active-state-toggle {
+  grid-column: 1/4;
+  display: flex;
+  justify-content: center;
+  background-color: var(--Very-Dark-Desaturated-Blue);
+  gap: 1.5rem;
+  padding: 1.8rem 0;
+  border-radius: 7px;
+}
+
+#todo-active-state-toggle > button {
+  background: none;
+  color: var(--Very-Dark-Grayish-Blue);
+  font-size: var(--txt-md);
+  font-weight: var(--font-wgt-lg);
+}
+
+#todolist-counter {
+  background-color: var(--Very-Dark-Desaturated-Blue);
+  padding: 2rem 0 2rem 2rem;
+  border-radius: 0 0 0 7px;
+  color: var(--Very-Dark-Grayish-Blue);
+  font-size: var(--txt-smd);
+}
+
+#clear-completed-btn {
+  grid-column: 2/4;
+  grid-row: 1/2;
+  display: flex;
+  justify-content: end;
+  padding: 2rem 2rem 2rem 0;
+  border-radius: 0 0 7px 0;
+  background-color: var(--Very-Dark-Desaturated-Blue);
+  color: var(--Very-Dark-Grayish-Blue);
+  font-size: var(--txt-smd);
 }
