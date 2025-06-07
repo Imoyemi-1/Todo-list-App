@@ -68,11 +68,11 @@ body {
 
 #main-section-container {
   width: 100%;
-  max-width: 1020px;
+  max-width: 550px;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 9.5rem;
+  top: 8.8%;
   padding: 0 2rem;
 }
 
@@ -169,7 +169,7 @@ input[type='checkbox']:checked {
 }
 
 input[type='checkbox']:checked::after {
-  content: url(/images/icon-check.svg);
+  content: url(../images/icon-check.svg);
   font-weight: var(--font-wgt-lg);
   position: absolute;
   top: 50%;
@@ -180,6 +180,7 @@ input[type='checkbox']:checked::after {
 .todo-item-txt-container p {
   font-size: var(--txt-smd);
   color: var(--Very-Light-Grayish-Blue);
+  cursor: pointer;
 }
 
 .remove-todo-btn {
@@ -189,6 +190,7 @@ input[type='checkbox']:checked::after {
   display: flex;
   align-items: center;
   transition: transform 0.2s ease;
+  cursor: pointer;
 }
 
 .remove-todo-btn img {
@@ -202,7 +204,7 @@ input[type='checkbox']:checked::after {
 #toggle-todo-section-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  row-gap: 10px;
+  row-gap: 2rem;
 }
 
 #toggle-todo-section-container button {
@@ -221,12 +223,14 @@ input[type='checkbox']:checked::after {
 
 #todo-active-state-toggle > button {
   background: none;
-  color: var(--Very-Dark-Grayish-Blue);
   font-size: var(--txt-md);
   font-weight: var(--font-wgt-lg);
+  color: var(--Very-Dark-Grayish-Blue);
+  cursor: pointer;
 }
 
 #todolist-counter {
+  grid-column: 1/3;
   background-color: var(--Very-Dark-Desaturated-Blue);
   padding: 2rem 0 2rem 2rem;
   border-radius: 0 0 0 7px;
@@ -235,7 +239,7 @@ input[type='checkbox']:checked::after {
 }
 
 #clear-completed-btn {
-  grid-column: 2/4;
+  grid-column: 3/4;
   grid-row: 1/2;
   display: flex;
   justify-content: end;
@@ -244,4 +248,47 @@ input[type='checkbox']:checked::after {
   background-color: var(--Very-Dark-Desaturated-Blue);
   color: var(--Very-Dark-Grayish-Blue);
   font-size: var(--txt-smd);
+  cursor: pointer;
+}
+
+#clear-completed-btn:hover,
+#todo-active-state-toggle > button:hover {
+  transition: color 0.3s ease;
+  color: var(--Light-Grayish-Blue-hover);
+}
+
+.all-btn.active-state {
+  color: var(--Bright-Blue) !important;
+}
+
+@media screen and (min-width: 30rem) {
+  html {
+    font-size: 50%;
+  }
+
+  #toggle-todo-section-container {
+    background-color: var(--Very-Dark-Desaturated-Blue);
+    border-radius: 0 0 7px 7px;
+  }
+
+  #todo-active-state-toggle {
+    grid-column: 2/3;
+    grid-row: 1/2;
+    border-radius: 0;
+    border: none;
+    gap: 2rem;
+    background: none;
+  }
+
+  #todolist-counter {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    background: none;
+  }
+
+  #clear-completed-btn {
+    grid-column: 3/4;
+    grid-row: 1/2;
+    background: none;
+  }
 }
