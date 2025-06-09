@@ -261,6 +261,11 @@ input[type='checkbox']:checked::after {
   color: var(--Bright-Blue) !important;
 }
 
+.checkcomplete{
+  text-decoration: line-through;
+  color: var(--Very-Dark-Grayish-Blue) !important;
+}
+
 @media screen and (min-width: 30rem) {
   html {
     font-size: 50%;

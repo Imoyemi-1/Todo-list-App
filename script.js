@@ -29,8 +29,9 @@ function createTodo(text) {
                 type="checkbox"
                 name="checktodo"
                 id="checktodo"
+                class = "checktodo"
               />
-              <p class="todo-txt">${capitalizeFirstWork(text)}</p>
+              <p class="todo-txt">${capitalizeFirstWord(text)}</p>
             </div>
             <button class="remove-todo-btn">
               <img
@@ -39,10 +40,33 @@ function createTodo(text) {
               />
             </button>`;
   todoContainer.appendChild(li);
+
+  document
+    .querySelectorAll('.checktodo')
+    .forEach((item) => item.addEventListener('click', completeTodo));
+  document
+    .querySelectorAll('.todo-txt')
+    .forEach((item) => item.addEventListener('click', completeTodo));
 }
 
+// Toggle todo check complete
+
+const completeTodo = (e) => {
+  if (e.target.classList.contains('checktodo')) {
+    e.target.checked
+      ? e.target.nextElementSibling.classList.add('checkcomplete')
+      : e.target.nextElementSibling.classList.remove('checkcomplete');
+  } else {
+    e.target.previousElementSibling.checked =
+      !e.target.previousElementSibling.checked;
+    e.target.previousElementSibling.checked
+      ? e.target.classList.add('checkcomplete')
+      : e.target.classList.remove('checkcomplete');
+  }
+};
+
 // Utility functions
-function capitalizeFirstWork(word) {
+function capitalizeFirstWord(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
