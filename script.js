@@ -125,6 +125,17 @@ const removeTodo = (e) => {
   localStorage.setItem('todo', JSON.stringify(removedtodo));
 };
 
+// remove all completed todo from storage
+function clearCompletedFromStorage(){
+  const getItemFromStorage = JSON.parse(localStorage.getItem('todo'));
+
+  // remove complete from storage
+  const removeComplete = getItemFromStorage.filter(
+    (todo) => !todo.isActive
+  );
+  localStorage.setItem('todo', JSON.stringify(removeComplete));
+}
+
 // Utility functions
 function capitalizeFirstWord(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
