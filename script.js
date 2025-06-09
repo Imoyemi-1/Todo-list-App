@@ -2,32 +2,39 @@
 const todoInput = document.getElementById('input-container');
 
 // Add new todo to dom
-let todoFromStorage = JSON.parse(localStorage.getItem('todo'));
 
 const addNewTodo = (e) => {
   e.preventDefault();
+  let getItemFromStorage = JSON.parse(localStorage.getItem('todo'));
 
   const input = document.getElementById('addtodoitem');
   if (input.value.trim() === '') {
     alert('Please add todo item');
   } else {
-    if (!todoFromStorage) {
-      todoFromStorage = [];
+    createTodo(input.value.trim());
+    if (!getItemFromStorage) {
+      getItemFromStorage = [];
     }
-    todoFromStorage.push({
+    getItemFromStorage.push({
       id: crypto.randomUUID(),
       txt: input.value.trim(),
       isActive: false,
     });
   }
 
-  localStorage.setItem('todo', JSON.stringify(todoFromStorage));
+  localStorage.setItem('todo', JSON.stringify(getItemFromStorage));
 
   input.value = '';
 };
+// display item to dom
 
+const displayTodo = () => {
+  const getItemFromStorage = JSON.parse(localStorage.getItem('todo'));
+
+  getItemFromStorage.forEach((item) => createTodo(item.txt, item.isActive));
+};
 // Create todo element
-function createTodo(text) {
+function createTodo(text, isActive) {
   const todoContainer = document.getElementById('todo-Item-container');
 
   // create list element
@@ -37,10 +44,12 @@ function createTodo(text) {
               <input
                 type="checkbox"
                 name="checktodo"
-                id="checktodo"
                 class = "checktodo"
+                ${isActive ? 'checked' : 'unchecked'}
               />
-              <p class="todo-txt">${capitalizeFirstWord(text)}</p>
+              <p class="${
+                !isActive ? 'todo-txt' : 'todo-txt checkcomplete'
+              }">${capitalizeFirstWord(text)}</p>
             </div>
             <button class="remove-todo-btn">
               <img
@@ -91,3 +100,4 @@ function capitalizeFirstWord(word) {
 // Eventlistener
 
 todoInput.addEventListener('submit', addNewTodo);
+displayTodo();
