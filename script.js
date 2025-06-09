@@ -8,17 +8,19 @@ const addNewTodo = (e) => {
   let getItemFromStorage = JSON.parse(localStorage.getItem('todo'));
 
   const input = document.getElementById('addtodoitem');
+  const randomId = crypto.randomUUID().slice(-8);
+
   if (input.value.trim() === '') {
     alert('Please add todo item');
   } else {
-    createTodo(input.value.trim());
+    createTodo(input.value.trim(), false, randomId);
     if (!getItemFromStorage) {
       getItemFromStorage = [];
     }
     getItemFromStorage.push({
-      id: crypto.randomUUID(),
       txt: input.value.trim(),
       isActive: false,
+      id: randomId,
     });
   }
 
@@ -31,15 +33,20 @@ const addNewTodo = (e) => {
 const displayTodo = () => {
   const getItemFromStorage = JSON.parse(localStorage.getItem('todo'));
 
-  getItemFromStorage.forEach((item) => createTodo(item.txt, item.isActive));
+  if (getItemFromStorage) {
+    getItemFromStorage.forEach((item) =>
+      createTodo(item.txt, item.isActive, item.id)
+    );
+  }
 };
 // Create todo element
-function createTodo(text, isActive) {
+function createTodo(text, isActive, id) {
   const todoContainer = document.getElementById('todo-Item-container');
 
   // create list element
   const li = document.createElement('li');
   li.classList = 'todo-item';
+  li.setAttribute('data-id', id);
   li.innerHTML = `<div class="todo-item-txt-container">
               <input
                 type="checkbox"
@@ -60,10 +67,7 @@ function createTodo(text, isActive) {
   todoContainer.appendChild(li);
 
   document
-    .querySelectorAll('.checktodo')
-    .forEach((item) => item.addEventListener('click', completeTodo));
-  document
-    .querySelectorAll('.todo-txt')
+    .querySelectorAll('.todo-item-txt-container')
     .forEach((item) => item.addEventListener('click', completeTodo));
   document
     .querySelectorAll('.remove-todo-btn')
@@ -73,6 +77,8 @@ function createTodo(text, isActive) {
 // Toggle todo check complete
 
 const completeTodo = (e) => {
+  const todoId = e.currentTarget.parentElement.getAttribute('data-id');
+
   if (e.target.classList.contains('checktodo')) {
     e.target.checked
       ? e.target.nextElementSibling.classList.add('checkcomplete')
@@ -84,7 +90,26 @@ const completeTodo = (e) => {
       ? e.target.classList.add('checkcomplete')
       : e.target.classList.remove('checkcomplete');
   }
+
+  toggleActiveStateInStorage(todoId);
 };
+
+// check and toggle active state for todo
+
+function toggleActiveStateInStorage(todoid) {
+  const getItemFromStorage = JSON.parse(localStorage.getItem('todo'));
+
+  const updatedTodo = getItemFromStorage.map((todos) => {
+    if (todos.id === todoid) {
+      return {
+        ...todos,
+        isActive: !todos.isActive,
+      };
+    }
+    return todos;
+  });
+  localStorage.setItem('todo', JSON.stringify(updatedTodo));
+}
 
 // RemoveTodo from dom
 
