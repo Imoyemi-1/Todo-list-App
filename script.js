@@ -10,8 +10,12 @@ const addNewTodo = (e) => {
   const input = document.getElementById('addtodoitem');
   const randomId = crypto.randomUUID().slice(-8);
 
+  const todoItem = getItemFromStorage.map((item) => item.txt);
+
   if (input.value.trim() === '') {
     alert('Please add todo item');
+  } else if (todoItem.indexOf(input.value.trim()) !== -1) {
+    alert('Todo already exist in the list');
   } else {
     createTodo(input.value.trim(), false, randomId);
     if (!getItemFromStorage) {
@@ -126,13 +130,11 @@ const removeTodo = (e) => {
 };
 
 // remove all completed todo from storage
-function clearCompletedFromStorage(){
+function clearCompletedFromStorage() {
   const getItemFromStorage = JSON.parse(localStorage.getItem('todo'));
 
   // remove complete from storage
-  const removeComplete = getItemFromStorage.filter(
-    (todo) => !todo.isActive
-  );
+  const removeComplete = getItemFromStorage.filter((todo) => !todo.isActive);
   localStorage.setItem('todo', JSON.stringify(removeComplete));
 }
 
