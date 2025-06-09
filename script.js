@@ -2,6 +2,8 @@
 const todoInput = document.getElementById('input-container');
 
 // Add new todo to dom
+let todoFromStorage = JSON.parse(localStorage.getItem('todo'));
+
 const addNewTodo = (e) => {
   e.preventDefault();
 
@@ -9,10 +11,17 @@ const addNewTodo = (e) => {
   if (input.value.trim() === '') {
     alert('Please add todo item');
   } else {
-    // console.log(input.value.trim());
+    if (!todoFromStorage) {
+      todoFromStorage = [];
+    }
+    todoFromStorage.push({
+      id: crypto.randomUUID(),
+      txt: input.value.trim(),
+      isActive: false,
+    });
   }
 
-  createTodo(input.value.trim());
+  localStorage.setItem('todo', JSON.stringify(todoFromStorage));
 
   input.value = '';
 };
