@@ -114,7 +114,15 @@ function toggleActiveStateInStorage(todoid) {
 // RemoveTodo from dom
 
 const removeTodo = (e) => {
-  e.target.parentElement.parentElement.remove();
+  const getItemFromStorage = JSON.parse(localStorage.getItem('todo'));
+  const li = e.target.parentElement.parentElement;
+
+  li.remove();
+  // remove from storage
+  const removedtodo = getItemFromStorage.filter(
+    (todo) => todo.id !== li.getAttribute('data-id')
+  );
+  localStorage.setItem('todo', JSON.stringify(removedtodo));
 };
 
 // Utility functions
