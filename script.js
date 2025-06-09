@@ -47,6 +47,9 @@ function createTodo(text) {
   document
     .querySelectorAll('.todo-txt')
     .forEach((item) => item.addEventListener('click', completeTodo));
+  document
+    .querySelectorAll('.remove-todo-btn')
+    .forEach((item) => item.addEventListener('click', removeTodo));
 }
 
 // Toggle todo check complete
@@ -63,6 +66,12 @@ const completeTodo = (e) => {
       ? e.target.classList.add('checkcomplete')
       : e.target.classList.remove('checkcomplete');
   }
+};
+
+// RemoveTodo from dom
+
+const removeTodo = (e) => {
+  e.target.parentElement.parentElement.remove();
 };
 
 // Utility functions
