@@ -5,7 +5,7 @@ const todoInput = document.getElementById('input-container');
 
 const addNewTodo = (e) => {
   e.preventDefault();
-  let getItemFromStorage = JSON.parse(localStorage.getItem('todo'));
+  let getItemFromStorage = JSON.parse(localStorage.getItem('todo')) || [];
 
   const input = document.getElementById('addtodoitem');
   const randomId = crypto.randomUUID().slice(-8);

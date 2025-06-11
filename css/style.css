@@ -268,7 +268,7 @@ input[type='checkbox']:checked::after {
 
 @media screen and (min-width: 30rem) {
   html {
-    font-size: 50%;
+    /* font-size: 50%; */
   }
 
   #toggle-todo-section-container {
