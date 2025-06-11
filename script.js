@@ -87,20 +87,22 @@ function createTodo(text, isActive, id) {
 const completeTodo = (e) => {
   const todoId = e.currentTarget.parentElement.getAttribute("data-id");
 
-  if (e.target.classList.contains("checktodo")) {
-    e.target.checked
-      ? e.target.nextElementSibling.classList.add("checkcomplete")
-      : e.target.nextElementSibling.classList.remove("checkcomplete");
-  } else {
-    e.target.previousElementSibling.checked =
-      !e.target.previousElementSibling.checked;
-    e.target.previousElementSibling.checked
-      ? e.target.classList.add("checkcomplete")
-      : e.target.classList.remove("checkcomplete");
-  }
+  if (e.target.tagName === "INPUT" || e.target.tagName === "P") {
+    if (e.target.classList.contains("checktodo")) {
+      e.target.checked
+        ? e.target.nextElementSibling.classList.add("checkcomplete")
+        : e.target.nextElementSibling.classList.remove("checkcomplete");
+    } else {
+      e.target.previousElementSibling.checked =
+        !e.target.previousElementSibling.checked;
+      e.target.previousElementSibling.checked
+        ? e.target.classList.add("checkcomplete")
+        : e.target.classList.remove("checkcomplete");
+    }
 
-  toggleActiveStateInStorage(todoId);
-  filterTodoStates();
+    toggleActiveStateInStorage(todoId);
+    filterTodoStates();
+  }
 };
 
 // check and toggle active state for todo
