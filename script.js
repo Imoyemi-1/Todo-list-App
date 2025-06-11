@@ -218,11 +218,14 @@ const hideActiveContainer = () => {
 const clearCompletedTodo = () => {
   const getItemFromStorage = JSON.parse(localStorage.getItem("todo"));
 
-  const completedTodo = getItemFromStorage.filter((todo) => !todo.isActive);
-
+  const completedTodo = getItemFromStorage.filter((todo) => todo.isActive);
+  const nonCompletedTodo = getItemFromStorage.filter((todo) => !todo.isActive);
+  if (completedTodo.length === 0) {
+    return;
+  }
   if (confirm("Clear All Completed Todo")) {
     todoContainer.innerHTML = "";
-    completedTodo.forEach((item) =>
+    nonCompletedTodo.forEach((item) =>
       createTodo(item.txt, item.isActive, item.id)
     );
     clearCompletedFromStorage();
