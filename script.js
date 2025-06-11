@@ -4,6 +4,7 @@ const statesbtn = document.querySelectorAll("#todo-active-state-toggle button");
 const todoContainer = document.getElementById("todo-Item-container");
 const clearCompletedBtn = document.getElementById("clear-completed-btn");
 const darkModeBtn = document.getElementById("dark-mode");
+const page = document.documentElement;
 
 let isActive = "all";
 // Add new todo to dom
@@ -234,16 +235,27 @@ const clearCompletedTodo = () => {
 // Dark mode
 
 const darkLightMode = () => {
-  const page = document.documentElement;
   page.classList.toggle("dark-light-mode");
 
   if (page.classList.contains("dark-light-mode")) {
     darkModeBtn.src = "images/icon-moon.svg";
     darkModeBtn.title = "light mode";
+    localStorage.setItem("darklightMode", JSON.stringify("light"));
   } else {
     darkModeBtn.src = "images/icon-sun.svg";
     darkModeBtn.title = "dark mode";
+    localStorage.setItem("darklightMode", JSON.stringify("dark"));
   }
+};
+
+// get dark or light mode from storage
+
+const getDarkModeFromStorage = () => {
+  const darkModeFromStorage = JSON.parse(localStorage.getItem("darklightMode"));
+
+  darkModeFromStorage === "light"
+    ? page.classList.add("dark-light-mode")
+    : page.classList.remove("dark-light-mode");
 };
 
 // Utility functions
@@ -262,6 +274,7 @@ function eventListeners() {
     displayTodo();
     count();
     hideActiveContainer();
+    getDarkModeFromStorage();
   });
   clearCompletedBtn.addEventListener("click", clearCompletedTodo);
   darkModeBtn.addEventListener("click", darkLightMode);
