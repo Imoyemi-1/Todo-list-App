@@ -3,6 +3,7 @@ const todoInput = document.getElementById("input-container");
 const statesbtn = document.querySelectorAll("#todo-active-state-toggle button");
 const todoContainer = document.getElementById("todo-Item-container");
 const clearCompletedBtn = document.getElementById("clear-completed-btn");
+const darkModeBtn = document.getElementById("dark-mode");
 
 let isActive = "all";
 // Add new todo to dom
@@ -230,6 +231,19 @@ const clearCompletedTodo = () => {
   }
 };
 
+// Dark mode
+
+const darkLightMode = () => {
+  const page = document.documentElement;
+  page.classList.toggle("dark-light-mode");
+
+  if (page.classList.contains("dark-light-mode")) {
+    darkModeBtn.src = "images/icon-moon.svg";
+  } else {
+    darkModeBtn.src = "images/icon-sun.svg";
+  }
+};
+
 // Utility functions
 function capitalizeFirstWord(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
@@ -248,6 +262,7 @@ function eventListeners() {
     hideActiveContainer();
   });
   clearCompletedBtn.addEventListener("click", clearCompletedTodo);
+  darkModeBtn.addEventListener("click", darkLightMode);
 }
 
 eventListeners();
