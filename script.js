@@ -2,6 +2,7 @@
 const todoInput = document.getElementById("input-container");
 const statesbtn = document.querySelectorAll("#todo-active-state-toggle button");
 const todoContainer = document.getElementById("todo-Item-container");
+const clearCompletedBtn = document.getElementById("clear-completed-btn");
 
 let isActive = "all";
 // Add new todo to dom
@@ -207,6 +208,26 @@ const hideActiveContainer = () => {
     statesBtnContainer.style.display = "grid";
   }
 };
+
+// clear todo thats completed from dom
+
+const clearCompletedTodo = () => {
+  const getItemFromStorage = JSON.parse(localStorage.getItem("todo"));
+
+  const completedTodo = getItemFromStorage.filter((todo) => !todo.isActive);
+
+  if (confirm("Clear All Completed Todo")) {
+    todoContainer.innerHTML = "";
+    completedTodo.forEach((item) =>
+      createTodo(item.txt, item.isActive, item.id)
+    );
+    clearCompletedFromStorage();
+    count();
+    filterTodoStates();
+    hideActiveContainer();
+  }
+};
+
 // Utility functions
 function capitalizeFirstWord(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
@@ -224,6 +245,7 @@ function eventListeners() {
     count();
     hideActiveContainer();
   });
+  clearCompletedBtn.addEventListener("click", clearCompletedTodo);
 }
 
 eventListeners();
