@@ -35,6 +35,7 @@ const addNewTodo = (e) => {
 
   input.value = "";
   filterTodoStates();
+  hideActiveContainer();
 };
 // display item to dom
 
@@ -98,6 +99,7 @@ const completeTodo = (e) => {
   }
 
   toggleActiveStateInStorage(todoId);
+  filterTodoStates();
 };
 
 // check and toggle active state for todo
@@ -129,6 +131,9 @@ const removeTodo = (e) => {
     (todo) => todo.id !== li.getAttribute("data-id")
   );
   localStorage.setItem("todo", JSON.stringify(removedtodo));
+
+  count();
+  hideActiveContainer();
 };
 
 // remove all completed todo from storage
@@ -188,6 +193,20 @@ function count() {
   document.getElementById("count-num").textContent = li.length;
 }
 
+// check todo list and hide the active states container if list is empty
+
+const hideActiveContainer = () => {
+  const getItemFromStorage = JSON.parse(localStorage.getItem("todo"));
+  const statesBtnContainer = document.getElementById(
+    "toggle-todo-section-container"
+  );
+
+  if (getItemFromStorage.length === 0) {
+    statesBtnContainer.style.display = "none";
+  } else {
+    statesBtnContainer.style.display = "grid";
+  }
+};
 // Utility functions
 function capitalizeFirstWord(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
@@ -203,6 +222,7 @@ function eventListeners() {
     statesbtn.forEach((btn) => btn.addEventListener("click", toggleStatesBtn));
     displayTodo();
     count();
+    hideActiveContainer();
   });
 }
 
