@@ -44,7 +44,7 @@
 }
 
 html {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: "Josefin Sans", sans-serif;
   font-size: 62.5%;
 }
 
@@ -55,10 +55,10 @@ body {
 /* Mobile view style */
 
 #head-section {
-  background-image: url('../images/bg-mobile-dark.jpg');
+  background-image: url("../images/bg-mobile-dark.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  min-height: 30vh;
+  min-height: clamp(150px, 35vh, 250px);
 }
 
 #main-section {
@@ -68,7 +68,7 @@ body {
 
 #main-section-container {
   width: 100%;
-  max-width: 550px;
+  max-width: 800px;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -116,7 +116,7 @@ header img:hover {
 }
 
 #input-container::after {
-  content: '';
+  content: "";
   position: absolute;
   height: 2rem;
   width: 2rem;
@@ -146,7 +146,7 @@ header img:hover {
   align-items: end;
 }
 
-input[type='checkbox'] {
+input[type="checkbox"] {
   height: 2rem;
   width: 2rem;
   border-radius: 50%;
@@ -160,15 +160,15 @@ input[type='checkbox'] {
   transition: background 0.2s ease;
 }
 
-input[type='checkbox']:hover {
+input[type="checkbox"]:hover {
   background-color: var(--Very-Dark-Grayish-Blue);
 }
 
-input[type='checkbox']:checked {
+input[type="checkbox"]:checked {
   background: var(--Check-Background);
 }
 
-input[type='checkbox']:checked::after {
+input[type="checkbox"]:checked::after {
   content: url(../images/icon-check.svg);
   font-weight: var(--font-wgt-lg);
   position: absolute;
@@ -249,6 +249,7 @@ input[type='checkbox']:checked::after {
   color: var(--Very-Dark-Grayish-Blue);
   font-size: var(--txt-smd);
   cursor: pointer;
+  white-space: nowrap;
 }
 
 #clear-completed-btn:hover,
@@ -261,14 +262,18 @@ input[type='checkbox']:checked::after {
   color: var(--Bright-Blue) !important;
 }
 
-.checkcomplete{
+.checkcomplete {
   text-decoration: line-through;
   color: var(--Very-Dark-Grayish-Blue) !important;
 }
 
-@media screen and (min-width: 30rem) {
-  html {
-    /* font-size: 50%; */
+@media screen and (min-width: 31.3rem) {
+  #head-section {
+    background-image: url("../images/bg-desktop-dark.jpg");
+  }
+
+  .todo-item-txt-container p {
+    font-size: var(--txt-md);
   }
 
   #toggle-todo-section-container {
@@ -281,7 +286,7 @@ input[type='checkbox']:checked::after {
     grid-row: 1/2;
     border-radius: 0;
     border: none;
-    gap: 2rem;
+    gap: 1rem;
     background: none;
   }
 
