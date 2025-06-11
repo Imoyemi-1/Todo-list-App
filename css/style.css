@@ -294,6 +294,7 @@ input[type="checkbox"]:checked::after {
     grid-column: 1/2;
     grid-row: 1/2;
     background: none;
+    font-size: var(--txt-md);
   }
 
   #clear-completed-btn {

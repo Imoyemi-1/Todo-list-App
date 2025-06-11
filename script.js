@@ -1,6 +1,7 @@
 // Global variables
 const todoInput = document.getElementById("input-container");
 const statesbtn = document.querySelectorAll("#todo-active-state-toggle button");
+const todoContainer = document.getElementById("todo-Item-container");
 
 let isActive = "all";
 // Add new todo to dom
@@ -48,8 +49,6 @@ const displayTodo = () => {
 };
 // Create todo element
 function createTodo(text, isActive, id) {
-  const todoContainer = document.getElementById("todo-Item-container");
-
   // create list element
   const li = document.createElement("li");
   li.classList = "todo-item";
@@ -163,7 +162,7 @@ const toggleStatesBtn = (e) => {
 const filterTodoStates = () => {
   const getItemFromStorage = JSON.parse(localStorage.getItem("todo"));
 
-  document.getElementById("todo-Item-container").innerHTML = "";
+  todoContainer.innerHTML = "";
 
   const filterTodo = getItemFromStorage.filter((todo) => {
     if (isActive === "all") {
@@ -179,7 +178,15 @@ const filterTodoStates = () => {
   });
 
   filterTodo.forEach((item) => createTodo(item.txt, item.isActive, item.id));
+  count();
 };
+
+//  count todo list in the dom
+function count() {
+  const li = document.querySelectorAll("ul li");
+
+  document.getElementById("count-num").textContent = li.length;
+}
 
 // Utility functions
 function capitalizeFirstWord(word) {
@@ -188,6 +195,15 @@ function capitalizeFirstWord(word) {
 
 // Eventlistener
 
-todoInput.addEventListener("submit", addNewTodo);
-statesbtn.forEach((btn) => btn.addEventListener("click", toggleStatesBtn));
-displayTodo();
+function eventListeners() {
+  todoInput.addEventListener("submit", addNewTodo);
+  statesbtn.forEach((btn) => btn.addEventListener("click", toggleStatesBtn));
+  document.addEventListener("DOMContentLoaded", () => {
+    todoInput.addEventListener("submit", addNewTodo);
+    statesbtn.forEach((btn) => btn.addEventListener("click", toggleStatesBtn));
+    displayTodo();
+    count();
+  });
+}
+
+eventListeners();
