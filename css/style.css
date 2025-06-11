@@ -110,6 +110,7 @@ header img {
   width: 100%;
   max-width: 2.5rem;
   transition: transform 0.2s ease;
+  cursor: pointer;
 }
 header img:hover {
   transform: scale(0.85);

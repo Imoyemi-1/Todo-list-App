@@ -239,8 +239,10 @@ const darkLightMode = () => {
 
   if (page.classList.contains("dark-light-mode")) {
     darkModeBtn.src = "images/icon-moon.svg";
+    darkModeBtn.title = "light mode";
   } else {
     darkModeBtn.src = "images/icon-sun.svg";
+    darkModeBtn.title = "dark mode";
   }
 };
 
