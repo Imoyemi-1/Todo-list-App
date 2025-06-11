@@ -1,6 +1,8 @@
 // Global variables
 const todoInput = document.getElementById("input-container");
+const statesbtn = document.querySelectorAll("#todo-active-state-toggle button");
 
+let isActive = "all";
 // Add new todo to dom
 
 const addNewTodo = (e) => {
@@ -31,6 +33,7 @@ const addNewTodo = (e) => {
   localStorage.setItem("todo", JSON.stringify(getItemFromStorage));
 
   input.value = "";
+  filterTodoStates();
 };
 // display item to dom
 
@@ -140,7 +143,43 @@ function clearCompletedFromStorage() {
 
 // toggle between todo states btn to filter active states
 
-const filterTodoStates = () => {};
+const toggleStatesBtn = (e) => {
+  const btn = e.target;
+
+  statesbtn.forEach((item) => item.classList.remove("active-state"));
+  btn.classList.add("active-state");
+
+  if (btn.textContent === "Active") {
+    isActive = "active";
+  } else if (btn.textContent === "Completed") {
+    isActive = "completed";
+  } else {
+    isActive = "all";
+  }
+
+  filterTodoStates();
+};
+
+const filterTodoStates = () => {
+  const getItemFromStorage = JSON.parse(localStorage.getItem("todo"));
+
+  document.getElementById("todo-Item-container").innerHTML = "";
+
+  const filterTodo = getItemFromStorage.filter((todo) => {
+    if (isActive === "all") {
+      return true;
+    }
+    if (isActive === "active") {
+      return !todo.isActive;
+    }
+
+    if (isActive === "completed") {
+      return todo.isActive;
+    }
+  });
+
+  filterTodo.forEach((item) => createTodo(item.txt, item.isActive, item.id));
+};
 
 // Utility functions
 function capitalizeFirstWord(word) {
@@ -150,4 +189,5 @@ function capitalizeFirstWord(word) {
 // Eventlistener
 
 todoInput.addEventListener("submit", addNewTodo);
+statesbtn.forEach((btn) => btn.addEventListener("click", toggleStatesBtn));
 displayTodo();

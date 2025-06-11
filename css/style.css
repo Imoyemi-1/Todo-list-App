@@ -258,7 +258,7 @@ input[type="checkbox"]:checked::after {
   color: var(--Light-Grayish-Blue-hover);
 }
 
-.all-btn.active-state {
+.active-state {
   color: var(--Bright-Blue) !important;
 }
 
