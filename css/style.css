@@ -41,7 +41,24 @@
   --txt-xmd: 1.8rem;
   --txt-lg: 2rem;
   --txt-xlg: 2.4rem;
+
+  /* background image */
+
+  --background-image: url("../images/bg-mobile-dark.jpg");
 }
+
+/* color for dark mode */
+
+.dark-light-mode {
+  --Very-Dark-Blue: hsl(236, 33%, 92%);
+  --Very-Dark-Desaturated-Blue: hsl(0, 0%, 98%);
+  --Light-Grayish-Blue: hsl(233, 14%, 35%);
+  --Very-Light-Grayish-Blue: hsl(235, 19%, 35%);
+  --Very-Dark-Grayish-Blue: hsl(233, 11%, 84%);
+  --background-image: url("../images/bg-mobile-light.jpg");
+}
+
+/* general style */
 
 html {
   font-family: "Josefin Sans", sans-serif;
@@ -55,7 +72,7 @@ body {
 /* Mobile view style */
 
 #head-section {
-  background-image: url("../images/bg-mobile-dark.jpg");
+  background-image: var(--background-image);
   background-repeat: no-repeat;
   background-size: cover;
   min-height: clamp(150px, 35vh, 250px);
@@ -189,8 +206,13 @@ input[type="checkbox"]:checked::after {
   max-width: 2rem;
   display: flex;
   align-items: center;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, visibility 0.3s ease;
+  visibility: hidden;
   cursor: pointer;
+}
+
+.todo-item:hover .remove-todo-btn {
+  visibility: visible;
 }
 
 .remove-todo-btn img {
@@ -267,9 +289,18 @@ input[type="checkbox"]:checked::after {
   color: var(--Very-Dark-Grayish-Blue) !important;
 }
 
-@media screen and (min-width: 31.3rem) {
+@media screen and (min-width: 34rem) {
+  /* light mode */
+  :root {
+    --background-image: url("../images/bg-desktop-dark.jpg");
+  }
+
+  .dark-light-mode {
+    --background-image: url("../images/bg-desktop-light.jpg");
+  }
+
   #head-section {
-    background-image: url("../images/bg-desktop-dark.jpg");
+    background-image: var(--background-image);
   }
 
   .todo-item-txt-container p {
@@ -286,7 +317,7 @@ input[type="checkbox"]:checked::after {
     grid-row: 1/2;
     border-radius: 0;
     border: none;
-    gap: 1rem;
+    gap: 1.5rem;
     background: none;
   }
 
@@ -301,5 +332,6 @@ input[type="checkbox"]:checked::after {
     grid-column: 3/4;
     grid-row: 1/2;
     background: none;
+    font-size: var(--txt-md);
   }
 }
