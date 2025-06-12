@@ -228,6 +228,7 @@ input[type="checkbox"]:checked::after {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   row-gap: 2rem;
+  margin-bottom: 2rem;
 }
 
 #toggle-todo-section-container button {
@@ -279,6 +280,13 @@ input[type="checkbox"]:checked::after {
 #todo-active-state-toggle > button:hover {
   transition: color 0.3s ease;
   color: var(--Light-Grayish-Blue-hover);
+}
+
+#drag-drop {
+  text-align: center;
+  font-weight: var(--font-wgt-lg);
+  font-size: var(--txt-smd);
+  color: var(--Dark-Grayish-Blue);
 }
 
 .active-state {
