@@ -40,8 +40,8 @@ Users will be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://github.com/Imoyemi-1/Todo-list-App.git)
-- Live Site URL: [Add live site URL here](https://todo-list-app-111.netlify.app/)
+- Solution URL: [Source code](https://github.com/Imoyemi-1/Todo-list-App.git)
+- Live Site URL: [Todo List App](https://todo-list-app-111.netlify.app/)
 
 ### Built with
 
@@ -85,4 +85,4 @@ const todoDragStart = (e) => {
 
 ## Author
 
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/Imoyemi-1)
+- Frontend Mentor - [@Imoyemi](https://www.frontendmentor.io/profile/Imoyemi-1)
