@@ -348,3 +348,22 @@ input[type="checkbox"]:checked::after {
     background-color: var(--Very-Dark-Grayish-Blue);
   }
 }
+
+/* default user dark or light mode */
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --Very-Dark-Blue: hsl(236, 33%, 92%);
+    --Very-Dark-Desaturated-Blue: hsl(0, 0%, 98%);
+    --Light-Grayish-Blue: hsl(233, 14%, 35%);
+    --Very-Light-Grayish-Blue: hsl(235, 19%, 35%);
+    --Very-Dark-Grayish-Blue: hsl(233, 11%, 84%);
+    --background-image: url("../images/bg-mobile-light.jpg");
+  }
+}
+
+@media (prefers-color-scheme: light) and (min-width: 34rem) {
+  :root {
+    --background-image: url("../images/bg-desktop-light.jpg");
+  }
+}
