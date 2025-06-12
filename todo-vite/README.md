@@ -14,8 +14,6 @@ This is a solution to the [Todo app challenge on Frontend Mentor](https://www.fr
   - [Useful resources](#useful-resources)
 - [Author](#author)
 
-**Note: Delete this note and update the table of contents based on what sections you keep.**
-
 ## Overview
 
 This is a todo app project from frontend mentor. I'm doing this project to build a good fundamental and have confident in my vanilla javascript skills
@@ -54,7 +52,7 @@ Users will be able to:
 
 ### What I learned
 
-i learnt more about hold to handle drag and drop element in a web page and i learnt how to customise checkbox with css
+i learnt more about hold to handle drag and drop element in a web page and use sortable.js library for it. It really work well and i learnt how to customise checkbox with css
 
 code snippets for checkbox :
 
@@ -72,16 +70,19 @@ input[type="checkbox"]:checked::after {
 code snippets for drag and drop :
 
 ```js
-const todoDragStart = (e) => {
-  draggedItem = e.target;
-  draggedItem.classList.add("dragging");
-  e.dataTransfer.effectAllowed = "move";
-};
+new Sortable(todoContainer, {
+  animation: 150,
+  onEnd: () => {
+    updateStorage();
+  },
+});
 ```
 
 ### Useful resources
 
-- [resource](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API) - This helped me for drag and drop. I really liked this pattern and will use it going forward.
+- [Mdn](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API) - This helped me for drag and drop . I read and understand more about drag and drop
+
+- [Sortable.js](https://github.com/SortableJS/Sortable) - This helped me for drag and drop so i can be able to control it on touch screen device too and not only on mouse over. I really liked this pattern and will use it going forward.
 
 ## Author
 
