@@ -60,6 +60,7 @@ function createTodo(text, isActive, id) {
   li.classList = "todo-item";
   li.id = "todo-item-con";
   li.setAttribute("data-id", id);
+  li.setAttribute("data-active", isActive);
   li.setAttribute("draggable", true);
   li.innerHTML = `<div class="todo-item-txt-container">
               <input
@@ -211,15 +212,18 @@ function count() {
 // check todo list and hide the active states container if list is empty
 
 const hideActiveContainer = () => {
-  const getItemFromStorage = JSON.parse(localStorage.getItem("todo"));
+  const getItemFromStorage = JSON.parse(localStorage.getItem("todo")) || [];
   const statesBtnContainer = document.getElementById(
     "toggle-todo-section-container"
   );
+  const dragDrop = document.getElementById("drag-drop");
 
   if (getItemFromStorage.length === 0) {
     statesBtnContainer.style.display = "none";
+    dragDrop.style.display = "none";
   } else {
     statesBtnContainer.style.display = "grid";
+    dragDrop.style.display = "block";
   }
 };
 
@@ -281,7 +285,10 @@ const todoDragStart = (e) => {
 
 // drag end for todo list
 
-const todoDragEnd = () => draggedItem.classList.remove("dragging");
+const todoDragEnd = () => {
+  draggedItem.classList.remove("dragging");
+  updateStorage();
+};
 
 // drag over for todo list
 
@@ -325,6 +332,25 @@ const getDragAfterElement = (container, clientY) => {
   ).element;
 };
 
+// update todo in storage from drag and drop
+
+const updateStorage = () => {
+  const li = document.querySelectorAll("li");
+  const newTodo = [];
+
+  if (document.querySelector(".all-btn.active-state")) {
+    li.forEach((item) => {
+      newTodo.push({
+        txt: item.querySelector("p").textContent,
+        isActive: item.getAttribute("data-active") === "true" ? true : false,
+        id: item.getAttribute("data-id"),
+      });
+    });
+
+    localStorage.setItem("todo", JSON.stringify(newTodo));
+  }
+};
+
 // Utility functions
 function capitalizeFirstWord(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
@@ -336,8 +362,6 @@ function eventListeners() {
   todoInput.addEventListener("submit", addNewTodo);
   statesbtn.forEach((btn) => btn.addEventListener("click", toggleStatesBtn));
   document.addEventListener("DOMContentLoaded", () => {
-    todoInput.addEventListener("submit", addNewTodo);
-    statesbtn.forEach((btn) => btn.addEventListener("click", toggleStatesBtn));
     displayTodo();
     count();
     hideActiveContainer();
