@@ -64,7 +64,6 @@ function createTodo(text, isActive, id) {
   li.id = "todo-item-con";
   li.setAttribute("data-id", id);
   li.setAttribute("data-active", isActive);
-  li.setAttribute("draggable", true);
   li.innerHTML = `<div class="todo-item-txt-container">
               <input
                 type="checkbox"

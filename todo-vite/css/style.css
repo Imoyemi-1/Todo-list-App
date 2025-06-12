@@ -178,10 +178,6 @@ input[type="checkbox"] {
   transition: background 0.2s ease;
 }
 
-input[type="checkbox"]:hover {
-  background-color: var(--Very-Dark-Grayish-Blue);
-}
-
 input[type="checkbox"]:checked {
   background: var(--Check-Background);
 }
@@ -212,16 +208,8 @@ input[type="checkbox"]:checked::after {
   cursor: pointer;
 }
 
-.todo-item:hover .remove-todo-btn {
-  visibility: visible;
-}
-
 .remove-todo-btn img {
   width: 100%;
-}
-
-.remove-todo-btn:hover {
-  transform: scale(0.8);
 }
 
 #toggle-todo-section-container {
@@ -275,12 +263,6 @@ input[type="checkbox"]:checked::after {
   font-size: var(--txt-smd);
   cursor: pointer;
   white-space: nowrap;
-}
-
-#clear-completed-btn:hover,
-#todo-active-state-toggle > button:hover {
-  transition: color 0.3s ease;
-  color: var(--Light-Grayish-Blue-hover);
 }
 
 #drag-drop {
@@ -343,5 +325,26 @@ input[type="checkbox"]:checked::after {
     grid-row: 1/2;
     background: none;
     font-size: var(--txt-md);
+  }
+}
+
+/* Hover states on touch and screen */
+@media (hover: hover) {
+  #clear-completed-btn:hover,
+  #todo-active-state-toggle > button:hover {
+    transition: color 0.3s ease;
+    color: var(--Light-Grayish-Blue-hover);
+  }
+
+  .remove-todo-btn:hover {
+    transform: scale(0.8);
+  }
+
+  .todo-item:hover .remove-todo-btn {
+    visibility: visible;
+  }
+
+  input[type="checkbox"]:hover {
+    background-color: var(--Very-Dark-Grayish-Blue);
   }
 }
