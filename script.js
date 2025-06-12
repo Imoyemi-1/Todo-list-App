@@ -7,6 +7,8 @@ const darkModeBtn = document.getElementById("dark-mode");
 const page = document.documentElement;
 
 let isActive = "all";
+let draggedItem = null;
+
 // Add new todo to dom
 
 const addNewTodo = (e) => {
@@ -56,7 +58,9 @@ function createTodo(text, isActive, id) {
   // create list element
   const li = document.createElement("li");
   li.classList = "todo-item";
+  li.id = "todo-item-con";
   li.setAttribute("data-id", id);
+  li.setAttribute("draggable", true);
   li.innerHTML = `<div class="todo-item-txt-container">
               <input
                 type="checkbox"
@@ -79,6 +83,12 @@ function createTodo(text, isActive, id) {
   document
     .querySelectorAll(".todo-item-txt-container")
     .forEach((item) => item.addEventListener("click", completeTodo));
+  document
+    .querySelectorAll(".todo-item")
+    .forEach((item) => item.addEventListener("dragstart", todoDragStart));
+  document
+    .querySelectorAll(".todo-item")
+    .forEach((item) => item.addEventListener("dragend", todoDragEnd));
   document
     .querySelectorAll(".remove-todo-btn")
     .forEach((item) => item.addEventListener("click", removeTodo));
@@ -261,6 +271,60 @@ const getDarkModeFromStorage = () => {
     : page.classList.remove("dark-light-mode");
 };
 
+// drag start for todo list
+
+const todoDragStart = (e) => {
+  draggedItem = e.target;
+  draggedItem.classList.add("dragging");
+  e.dataTransfer.effectAllowed = "move";
+};
+
+// drag end for todo list
+
+const todoDragEnd = () => draggedItem.classList.remove("dragging");
+
+// drag over for todo list
+
+const todoDragOver = (e) => {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = "move";
+};
+
+// drop todo list
+
+const todoDrop = (e) => {
+  e.preventDefault();
+
+  const afterElement = getDragAfterElement(todoContainer, e.clientY);
+
+  if (afterElement === null) {
+    todoContainer.appendChild(draggedItem);
+  } else {
+    todoContainer.insertBefore(draggedItem, afterElement);
+  }
+};
+
+// get drag after element
+
+const getDragAfterElement = (container, clientY) => {
+  const draggableElements = [
+    ...container.querySelectorAll("li:not(.dragging)"),
+  ];
+
+  return draggableElements.reduce(
+    (closest, child) => {
+      const box = child.getBoundingClientRect();
+      const offset = clientY - box.top - box.height / 2;
+      if (offset < 0 && offset > closest.offset) {
+        return { offset: offset, element: child };
+      } else {
+        return closest;
+      }
+    },
+    { offset: Number.NEGATIVE_INFINITY }
+  ).element;
+};
+
 // Utility functions
 function capitalizeFirstWord(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
@@ -281,6 +345,8 @@ function eventListeners() {
   });
   clearCompletedBtn.addEventListener("click", clearCompletedTodo);
   darkModeBtn.addEventListener("click", darkLightMode);
+  todoContainer.addEventListener("dragover", todoDragOver);
+  todoContainer.addEventListener("drop", todoDrop);
 }
 
 eventListeners();

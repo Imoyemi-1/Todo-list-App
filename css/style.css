@@ -207,7 +207,7 @@ input[type="checkbox"]:checked::after {
   max-width: 2rem;
   display: flex;
   align-items: center;
-  transition: transform 0.2s ease, visibility 0.3s ease;
+  transition: transform 0.2s ease, visibility 0.2s ease-in-out;
   visibility: hidden;
   cursor: pointer;
 }
@@ -269,6 +269,7 @@ input[type="checkbox"]:checked::after {
   justify-content: end;
   padding: 2rem 2rem 2rem 0;
   border-radius: 0 0 7px 0;
+  border: none;
   background-color: var(--Very-Dark-Desaturated-Blue);
   color: var(--Very-Dark-Grayish-Blue);
   font-size: var(--txt-smd);
