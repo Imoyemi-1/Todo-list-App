@@ -2,6 +2,12 @@
 
 import Sortable from "sortablejs";
 
+// import image
+
+import removeBtn from "/images/icon-cross.svg";
+import darkModeIcon from "/images/icon-sun.svg";
+import lightModeIcon from "/images/icon-moon.svg";
+
 // Global variables
 const todoInput = document.getElementById("input-container");
 const statesbtn = document.querySelectorAll("#todo-active-state-toggle button");
@@ -77,8 +83,8 @@ function createTodo(text, isActive, id) {
             </div>
             <button class="remove-todo-btn">
               <img
-                src="images/icon-cross.svg"
-                alt=""
+                src= ${removeBtn}
+                alt="delete button"
               />
             </button>`;
   todoContainer.appendChild(li);
@@ -251,11 +257,11 @@ const darkLightMode = () => {
   page.classList.toggle("dark-light-mode");
 
   if (page.classList.contains("dark-light-mode")) {
-    darkModeBtn.src = "images/icon-moon.svg";
+    darkModeBtn.src = lightModeIcon;
     darkModeBtn.title = "light mode";
     localStorage.setItem("darklightMode", JSON.stringify("light"));
   } else {
-    darkModeBtn.src = "images/icon-sun.svg";
+    darkModeBtn.src = darkModeIcon;
     darkModeBtn.title = "dark mode";
     localStorage.setItem("darklightMode", JSON.stringify("dark"));
   }
