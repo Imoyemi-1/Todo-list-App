@@ -201,7 +201,6 @@ input[type="checkbox"]:checked::after {
   display: flex;
   align-items: center;
   transition: transform 0.2s ease, visibility 0.2s ease-in-out;
-  visibility: hidden;
   cursor: pointer;
 }
 
@@ -337,6 +336,9 @@ input[type="checkbox"]:checked::after {
     transform: scale(0.8);
   }
 
+  .remove-todo-btn {
+    visibility: hidden;
+  }
   .todo-item:hover .remove-todo-btn {
     visibility: visible;
   }
