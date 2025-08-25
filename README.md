@@ -34,7 +34,7 @@ Users will be able to:
 
 ### Screenshot
 
-[project screenshot](./images/todolist-screenshot.png)
+![](./images/todolist-screenshot.png)
 
 ### Links
 
