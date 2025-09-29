@@ -9,22 +9,34 @@ import darkModeIcon from '/images/icon-sun.svg';
 import lightModeIcon from '/images/icon-moon.svg';
 
 // Global variables
-const todoInput = document.getElementById('input-container');
-const statesbtn = document.querySelectorAll('#todo-active-state-toggle button');
-const todoContainer = document.getElementById('todo-Item-container');
-const clearCompletedBtn = document.getElementById('clear-completed-btn');
-const darkModeBtn = document.getElementById('dark-mode');
+const todoInput = document.getElementById('input-container') as HTMLFormElement;
+const statesBtn = document.querySelectorAll('#todo-active-state-toggle button');
+const todoContainer = document.getElementById(
+  'todo-Item-container'
+) as HTMLElement;
+const clearCompletedBtn = document.getElementById(
+  'clear-completed-btn'
+) as HTMLElement;
+const darkModeBtn = document.getElementById('dark-mode') as HTMLImageElement;
 const page = document.documentElement;
 
 let isActive = 'all';
 
+interface Todo {
+  id: string;
+  txt: string;
+  isActive: boolean;
+}
 // Add new todo to dom
 
-const addNewTodo = (e) => {
+const addNewTodo = (e: SubmitEvent) => {
   e.preventDefault();
-  let getItemFromStorage = JSON.parse(localStorage.getItem('todo')) || [];
 
-  const input = document.getElementById('addtodoitem');
+  let getItemFromStorage: Todo[] = JSON.parse(
+    localStorage.getItem('todo') || '[]'
+  );
+
+  const input = document.getElementById('addtodoitem') as HTMLInputElement;
   const randomId = crypto.randomUUID().slice(-8);
 
   const todoItem = [...document.querySelectorAll('li .todo-txt')].map(
@@ -56,22 +68,22 @@ const addNewTodo = (e) => {
 // display item to dom
 
 const displayTodo = () => {
-  const getItemFromStorage = JSON.parse(localStorage.getItem('todo'));
+  const getItemFromStorage = JSON.parse(localStorage.getItem('todo') || '[]');
 
   if (getItemFromStorage) {
-    getItemFromStorage.forEach((item) =>
+    getItemFromStorage.forEach((item: Todo) =>
       createTodo(item.txt, item.isActive, item.id)
     );
   }
 };
 // Create todo element
-function createTodo(text, isActive, id) {
+function createTodo(text: string, isActive: boolean, id: string) {
   // create list element
   const li = document.createElement('li');
   li.classList = 'todo-item';
   li.id = 'todo-item-con';
   li.setAttribute('data-id', id);
-  li.setAttribute('data-active', isActive);
+  li.setAttribute('data-active', String(isActive));
   li.innerHTML = `<div class="todo-item-txt-container">
               <input
                 type="checkbox"
@@ -93,7 +105,8 @@ function createTodo(text, isActive, id) {
 
   document
     .querySelectorAll('.todo-item-txt-container')
-    .forEach((item) => item.addEventListener('click', completeTodo));
+    .forEach((item) => item.addEventListener('change', completeTodo));
+
   document
     .querySelectorAll('.remove-todo-btn')
     .forEach((item) => item.addEventListener('click', removeTodo));
@@ -101,20 +114,26 @@ function createTodo(text, isActive, id) {
 
 // Toggle todo check complete
 
-const completeTodo = (e) => {
-  const todoId = e.currentTarget.parentElement.getAttribute('data-id');
+const completeTodo = (e: Event) => {
+  const currentTarget = e.currentTarget as HTMLElement;
+  const target = e.target as HTMLInputElement;
+  const checkboxNextSibling = target?.nextElementSibling as HTMLElement;
+  const checkboxPrevSibling =
+    target?.previousElementSibling as HTMLInputElement;
+  const todoId = currentTarget?.parentElement?.getAttribute(
+    'data-id'
+  ) as string;
 
-  if (e.target.tagName === 'INPUT' || e.target.tagName === 'P') {
-    if (e.target.classList.contains('checktodo')) {
-      e.target.checked
-        ? e.target.nextElementSibling.classList.add('checkcomplete')
-        : e.target.nextElementSibling.classList.remove('checkcomplete');
+  if (target.tagName === 'INPUT' || target.tagName === 'P') {
+    if (target.classList.contains('checktodo')) {
+      target?.checked
+        ? checkboxNextSibling.classList.add('checkcomplete')
+        : checkboxNextSibling.classList.remove('checkcomplete');
     } else {
-      e.target.previousElementSibling.checked =
-        !e.target.previousElementSibling.checked;
-      e.target.previousElementSibling.checked
-        ? e.target.classList.add('checkcomplete')
-        : e.target.classList.remove('checkcomplete');
+      checkboxPrevSibling.checked = checkboxPrevSibling.checked;
+      checkboxPrevSibling.checked
+        ? checkboxPrevSibling.classList.add('checkcomplete')
+        : checkboxPrevSibling.classList.remove('checkcomplete');
     }
 
     toggleActiveStateInStorage(todoId);
@@ -124,11 +143,11 @@ const completeTodo = (e) => {
 
 // check and toggle active state for todo
 
-function toggleActiveStateInStorage(todoid) {
-  const getItemFromStorage = JSON.parse(localStorage.getItem('todo'));
+function toggleActiveStateInStorage(todoId: string) {
+  const getItemFromStorage = JSON.parse(localStorage.getItem('todo') || '[]');
 
-  const updatedTodo = getItemFromStorage.map((todos) => {
-    if (todos.id === todoid) {
+  const updatedTodo = getItemFromStorage.map((todos: Todo) => {
+    if (todos.id === todoId) {
       return {
         ...todos,
         isActive: !todos.isActive,
@@ -141,16 +160,17 @@ function toggleActiveStateInStorage(todoid) {
 
 // RemoveTodo from dom
 
-const removeTodo = (e) => {
-  const getItemFromStorage = JSON.parse(localStorage.getItem('todo'));
-  const li = e.target.parentElement.parentElement;
+const removeTodo = (e: Event) => {
+  const getItemFromStorage = JSON.parse(localStorage.getItem('todo') || '[]');
+  const target = e.target as HTMLElement;
+  const li = target.parentElement?.parentElement as HTMLElement;
 
   li.remove();
   // remove from storage
-  const removedtodo = getItemFromStorage.filter(
-    (todo) => todo.id !== li.getAttribute('data-id')
+  const removedTodo = getItemFromStorage.filter(
+    (todo: Todo) => todo.id !== li.getAttribute('data-id')
   );
-  localStorage.setItem('todo', JSON.stringify(removedtodo));
+  localStorage.setItem('todo', JSON.stringify(removedTodo));
 
   count();
   hideActiveContainer();
@@ -158,19 +178,21 @@ const removeTodo = (e) => {
 
 // remove all completed todo from storage
 function clearCompletedFromStorage() {
-  const getItemFromStorage = JSON.parse(localStorage.getItem('todo'));
+  const getItemFromStorage = JSON.parse(localStorage.getItem('todo') || '[]');
 
   // remove complete from storage
-  const removeComplete = getItemFromStorage.filter((todo) => !todo.isActive);
+  const removeComplete = getItemFromStorage.filter(
+    (todo: Todo) => !todo.isActive
+  );
   localStorage.setItem('todo', JSON.stringify(removeComplete));
 }
 
 // toggle between todo states btn to filter active states
 
-const toggleStatesBtn = (e) => {
-  const btn = e.target;
+const toggleStatesBtn = (e: Event) => {
+  const btn = e.target as HTMLElement;
 
-  statesbtn.forEach((item) => item.classList.remove('active-state'));
+  statesBtn.forEach((item) => item.classList.remove('active-state'));
   btn.classList.add('active-state');
 
   if (btn.textContent === 'Active') {
@@ -185,11 +207,11 @@ const toggleStatesBtn = (e) => {
 };
 
 const filterTodoStates = () => {
-  const getItemFromStorage = JSON.parse(localStorage.getItem('todo'));
+  const getItemFromStorage = JSON.parse(localStorage.getItem('todo') || '[]');
 
   todoContainer.innerHTML = '';
 
-  const filterTodo = getItemFromStorage.filter((todo) => {
+  const filterTodo = getItemFromStorage.filter((todo: Todo) => {
     if (isActive === 'all') {
       return true;
     }
@@ -202,25 +224,28 @@ const filterTodoStates = () => {
     }
   });
 
-  filterTodo.forEach((item) => createTodo(item.txt, item.isActive, item.id));
+  filterTodo.forEach((item: Todo) =>
+    createTodo(item.txt, item.isActive, item.id)
+  );
   count();
 };
 
 //  count todo list in the dom
 function count() {
   const li = document.querySelectorAll('ul li');
+  const countElement = document.getElementById('count-num') as HTMLElement;
 
-  document.getElementById('count-num').textContent = li.length;
+  countElement.textContent = String(li.length);
 }
 
 // check todo list and hide the active states container if list is empty
 
 const hideActiveContainer = () => {
-  const getItemFromStorage = JSON.parse(localStorage.getItem('todo')) || [];
+  const getItemFromStorage = JSON.parse(localStorage.getItem('todo') || '[]');
   const statesBtnContainer = document.getElementById(
     'toggle-todo-section-container'
-  );
-  const dragDrop = document.getElementById('drag-drop');
+  ) as HTMLElement;
+  const dragDrop = document.getElementById('drag-drop') as HTMLElement;
 
   if (getItemFromStorage.length === 0) {
     statesBtnContainer.style.display = 'none';
@@ -234,16 +259,20 @@ const hideActiveContainer = () => {
 // clear todo thats completed from dom
 
 const clearCompletedTodo = () => {
-  const getItemFromStorage = JSON.parse(localStorage.getItem('todo'));
+  const getItemFromStorage = JSON.parse(localStorage.getItem('todo') || '[]');
 
-  const completedTodo = getItemFromStorage.filter((todo) => todo.isActive);
-  const nonCompletedTodo = getItemFromStorage.filter((todo) => !todo.isActive);
+  const completedTodo = getItemFromStorage.filter(
+    (todo: Todo) => todo.isActive
+  );
+  const nonCompletedTodo = getItemFromStorage.filter(
+    (todo: Todo) => !todo.isActive
+  );
   if (completedTodo.length === 0) {
     return;
   }
   if (confirm('Clear All Completed Todo')) {
     todoContainer.innerHTML = '';
-    nonCompletedTodo.forEach((item) =>
+    nonCompletedTodo.forEach((item: Todo) =>
       createTodo(item.txt, item.isActive, item.id)
     );
     clearCompletedFromStorage();
@@ -272,7 +301,9 @@ const darkLightMode = () => {
 // get dark or light mode from storage
 
 const getDarkModeFromStorage = () => {
-  const darkModeFromStorage = JSON.parse(localStorage.getItem('darklightMode'));
+  const darkModeFromStorage = JSON.parse(
+    localStorage.getItem('darklightMode') || ''
+  );
 
   darkModeFromStorage === 'light'
     ? page.classList.add('dark-light-mode')
@@ -292,14 +323,14 @@ new Sortable(todoContainer, {
 
 const updateStorage = () => {
   const li = document.querySelectorAll('li');
-  const newTodo = [];
+  const newTodo: Todo[] = [];
 
   if (document.querySelector('.all-btn.active-state')) {
-    li.forEach((item) => {
+    li.forEach((item: HTMLElement) => {
       newTodo.push({
-        txt: item.querySelector('p').textContent,
+        txt: String(item.querySelector('p')?.textContent),
         isActive: item.getAttribute('data-active') === 'true' ? true : false,
-        id: item.getAttribute('data-id'),
+        id: String(item.getAttribute('data-id')),
       });
     });
 
@@ -308,7 +339,7 @@ const updateStorage = () => {
 };
 
 // Utility functions
-function capitalizeFirstWord(word) {
+function capitalizeFirstWord(word: string) {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
@@ -316,7 +347,7 @@ function capitalizeFirstWord(word) {
 
 function eventListeners() {
   todoInput.addEventListener('submit', addNewTodo);
-  statesbtn.forEach((btn) => btn.addEventListener('click', toggleStatesBtn));
+  statesBtn.forEach((btn) => btn.addEventListener('click', toggleStatesBtn));
   document.addEventListener('DOMContentLoaded', () => {
     displayTodo();
     count();
